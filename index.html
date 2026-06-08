@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ubuntu / Linux Command Cheat Sheet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #1c2128;
+    --bg4: #21262d;
+    --border: #30363d;
+    --border2: #3d444d;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #6e7681;
+    --green: #3fb950;
+    --green2: #2ea043;
+    --cyan: #39d0d8;
+    --blue: #58a6ff;
+    --blue2: #388bfd;
+    --purple: #bc8cff;
+    --pink: #ff7eb6;
+    --orange: #ff8c3a;
+    --yellow: #e3b341;
+    --red: #f85149;
+    --teal: #1abc9c;
+    --lime: #a8ff3e;
+    --mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 24px;
+    width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* TITLE */
+  .poster-title {
+    text-align: center;
+    padding: 24px 0 20px;
+    border-bottom: 2px solid var(--border2);
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .poster-title h1 {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .poster-title h1 span.ubuntu { color: var(--orange); }
+  .poster-title h1 span.linux { color: var(--cyan); }
+  .poster-title .subtitle {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 6px;
+    letter-spacing: 3px;
+  }
+  .title-badges {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  .badge.green { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+  .badge.blue { background: rgba(88,166,255,0.15); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
+  .badge.orange { background: rgba(255,140,58,0.15); color: var(--orange); border: 1px solid rgba(255,140,58,0.3); }
+  .badge.purple { background: rgba(188,140,255,0.15); color: var(--purple); border: 1px solid rgba(188,140,255,0.3); }
+  .badge.cyan { background: rgba(57,208,216,0.15); color: var(--cyan); border: 1px solid rgba(57,208,216,0.3); }
+  .badge.pink { background: rgba(255,126,182,0.15); color: var(--pink); border: 1px solid rgba(255,126,182,0.3); }
+
+  /* GRID LAYOUT */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .col-span-2 { grid-column: span 2; }
+  .col-span-3 { grid-column: span 3; }
+  .col-span-4 { grid-column: span 4; }
+
+  /* SECTION CARD */
+  .section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    font-size: 13px;
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--text3);
+    margin-left: auto;
+  }
+
+  /* COLOR VARIANTS */
+  .hdr-green .section-header { border-left: 3px solid var(--green); }
+  .hdr-green .section-title { color: var(--green); }
+  .hdr-blue .section-header { border-left: 3px solid var(--blue); }
+  .hdr-blue .section-title { color: var(--blue); }
+  .hdr-cyan .section-header { border-left: 3px solid var(--cyan); }
+  .hdr-cyan .section-title { color: var(--cyan); }
+  .hdr-purple .section-header { border-left: 3px solid var(--purple); }
+  .hdr-purple .section-title { color: var(--purple); }
+  .hdr-orange .section-header { border-left: 3px solid var(--orange); }
+  .hdr-orange .section-title { color: var(--orange); }
+  .hdr-pink .section-header { border-left: 3px solid var(--pink); }
+  .hdr-pink .section-title { color: var(--pink); }
+  .hdr-yellow .section-header { border-left: 3px solid var(--yellow); }
+  .hdr-yellow .section-title { color: var(--yellow); }
+  .hdr-red .section-header { border-left: 3px solid var(--red); }
+  .hdr-red .section-title { color: var(--red); }
+  .hdr-teal .section-header { border-left: 3px solid var(--teal); }
+  .hdr-teal .section-title { color: var(--teal); }
+  .hdr-lime .section-header { border-left: 3px solid var(--lime); }
+  .hdr-lime .section-title { color: var(--lime); }
+
+  /* COMMAND TABLE */
+  .cmd-body { padding: 6px 8px; }
+
+  .cmd-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 6px;
+    padding: 2.5px 0;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    align-items: start;
+  }
+  .cmd-row:last-child { border-bottom: none; }
+  .cmd-row.wide { grid-template-columns: 1fr; }
+
+  .cmd {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--cyan);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cmd .flag { color: var(--orange); }
+  .cmd .arg { color: var(--yellow); }
+  .cmd .str { color: var(--green); }
+  .cmd .op { color: var(--pink); }
+  .cmd .num { color: var(--purple); }
+
+  .desc {
+    font-size: 10px;
+    color: var(--text2);
+    line-height: 1.4;
+  }
+  .desc .ex {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    margin-top: 1px;
+  }
+  .desc .ex::before { content: '$ '; color: var(--green2); }
+  .desc em { color: var(--text); font-style: normal; font-weight: 500; }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--text2);
+    margin: 4px 0;
+    line-height: 1.6;
+  }
+  .code-block .prompt { color: var(--green2); }
+  .code-block .comment { color: var(--text3); }
+  .code-block .kw { color: var(--purple); }
+  .code-block .str2 { color: var(--green); }
+  .code-block .cmd2 { color: var(--cyan); }
+  .code-block .flag2 { color: var(--orange); }
+  .code-block .num2 { color: var(--pink); }
+
+  /* INLINE LABEL */
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 8px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-weight: 600;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+  .tag.g { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag.b { background: rgba(88,166,255,0.15); color: var(--blue); }
+  .tag.r { background: rgba(248,81,73,0.15); color: var(--red); }
+  .tag.y { background: rgba(227,179,65,0.15); color: var(--yellow); }
+  .tag.p { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag.o { background: rgba(255,140,58,0.15); color: var(--orange); }
+
+  /* PERMISSION TABLE */
+  .perm-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    padding: 6px 8px;
+  }
+  .perm-cell {
+    background: var(--bg3);
+    border-radius: 4px;
+    padding: 5px 6px;
+    text-align: center;
+  }
+  .perm-cell .pval { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--cyan); }
+  .perm-cell .plabel { font-size: 9px; color: var(--text2); margin-top: 2px; }
+  .perm-cell .psym { font-family: var(--mono); font-size: 13px; color: var(--yellow); font-weight: 600; }
+
+  /* PERM DIAGRAM */
+  .perm-diagram {
+    font-family: var(--mono);
+    font-size: 10px;
+    background: var(--bg3);
+    border-radius: 4px;
+    padding: 8px;
+    margin: 4px 8px;
+    line-height: 2;
+    color: var(--text2);
+  }
+
+  /* KEY SHORTCUT */
+  .shortcut-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    padding: 6px 8px;
+  }
+  .shortcut-row { display: flex; align-items: center; gap: 6px; }
+  .key {
+    font-family: var(--mono);
+    font-size: 9px;
+    background: var(--bg4);
+    border: 1px solid var(--border2);
+    border-bottom: 2px solid var(--border2);
+    border-radius: 3px;
+    padding: 2px 5px;
+    color: var(--yellow);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .key-desc { font-size: 10px; color: var(--text2); }
+
+  /* SECTION ROW SPACING */
+  .section-row { margin-bottom: 12px; }
+
+  /* VIM GRID */
+  .vim-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 6px 8px;
+  }
+  .vim-mode {
+    background: var(--bg3);
+    border-radius: 4px;
+    padding: 5px 7px;
+    border-left: 2px solid var(--purple);
+  }
+  .vim-mode .vm-name { font-family: var(--mono); font-size: 9px; color: var(--purple); font-weight: 700; letter-spacing: 1px; }
+  .vim-mode .vm-key { font-family: var(--mono); font-size: 9px; color: var(--yellow); }
+  .vim-mode .vm-desc { font-size: 9px; color: var(--text2); }
+
+  /* DIR TREE */
+  .dir-tree {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    padding: 6px 8px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+  .dir-tree .dir-name { color: var(--blue); font-weight: 600; }
+  .dir-tree .dir-desc { color: var(--text3); font-size: 9px; }
+
+  /* SIGNAL TABLE */
+  .signal-table { padding: 6px 8px; }
+  .signal-row { display: flex; align-items: center; gap: 8px; padding: 2px 0; border-bottom: 1px solid rgba(48,54,61,0.4); }
+  .signal-row:last-child { border-bottom: none; }
+  .sig-num { font-family: var(--mono); font-size: 10px; color: var(--pink); font-weight: 700; width: 30px; }
+  .sig-name { font-family: var(--mono); font-size: 10px; color: var(--cyan); width: 60px; }
+  .sig-desc { font-size: 10px; color: var(--text2); }
+
+  /* OCTAL TABLE */
+  .octal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5px;
+  }
+  .octal-table th {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    text-align: left;
+    padding: 3px 6px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .octal-table td {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 6px;
+    border-bottom: 1px solid rgba(48,54,61,0.4);
+    color: var(--text2);
+  }
+  .octal-table td:first-child { color: var(--cyan); font-weight: 600; }
+  .octal-table td:nth-child(2) { color: var(--yellow); }
+
+  /* GIT FLOW */
+  .git-flow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .git-node {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-family: var(--mono);
+    font-size: 9px;
+    text-align: center;
+  }
+  .git-node .gn-label { color: var(--text3); font-size: 8px; }
+  .git-node .gn-name { color: var(--green); font-weight: 600; }
+  .git-arrow { color: var(--text3); font-size: 12px; }
+
+  /* DIVIDER */
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 6px 8px;
+    opacity: 0.5;
+  }
+  .subsection-title {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 8px 2px;
+    font-weight: 600;
+  }
+
+  /* SMALL LABEL */
+  .path-note {
+    font-family: var(--mono);
+    font-size: 9px;
+    background: rgba(88,166,255,0.1);
+    border-left: 2px solid var(--blue2);
+    padding: 4px 8px;
+    margin: 4px 8px;
+    color: var(--text2);
+    border-radius: 0 3px 3px 0;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 16px;
+    border-top: 2px solid var(--border2);
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    font-size: 10px;
+    color: var(--text3);
+  }
+  .footer-section { }
+  .footer-title {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .footer-note { font-size: 9px; line-height: 1.6; }
+
+  .workflow-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-top: 10px;
+  }
+  .workflow-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .workflow-steps {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .workflow-step {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-family: var(--mono);
+    font-size: 9px;
+  }
+  .workflow-step .ws-num { color: var(--text3); font-size: 8px; }
+  .workflow-step .ws-cmd { color: var(--cyan); font-weight: 600; }
+  .workflow-step .ws-desc { color: var(--text3); font-size: 8px; display: block; }
+  .workflow-arrow { color: var(--green); font-size: 12px; }
+
+  /* PROCESS LIFECYCLE */
+  .lifecycle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 8px;
+    flex-wrap: wrap;
+  }
+  .lc-state {
+    background: var(--bg3);
+    border-radius: 4px;
+    padding: 4px 7px;
+    font-family: var(--mono);
+    font-size: 9px;
+    border: 1px solid var(--border2);
+    text-align: center;
+  }
+  .lc-state.active { border-color: var(--green); color: var(--green); }
+  .lc-state.sleeping { border-color: var(--blue); color: var(--blue); }
+  .lc-state.stopped { border-color: var(--yellow); color: var(--yellow); }
+  .lc-state.zombie { border-color: var(--red); color: var(--red); }
+  .lc-state.new { border-color: var(--purple); color: var(--purple); }
+  .lc-arrow { color: var(--text3); font-size: 10px; }
+
+  /* NETWORK QUICK REF */
+  .net-ref-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 6px;
+    padding: 2.5px 8px;
+    border-bottom: 1px solid rgba(48,54,61,0.4);
+  }
+  .net-ref-row:last-child { border-bottom: none; }
+  .net-port { font-family: var(--mono); font-size: 10px; color: var(--orange); font-weight: 600; }
+  .net-name { font-size: 10px; color: var(--text2); }
+
+  /* MOVE DIAGRAM (VIM) */
+  .vim-move {
+    background: var(--bg3);
+    border-radius: 4px;
+    padding: 8px;
+    margin: 4px 8px;
+    text-align: center;
+  }
+  .vim-move-row { display: flex; justify-content: center; gap: 4px; margin: 2px 0; }
+  .vk {
+    font-family: var(--mono);
+    font-size: 9px;
+    background: var(--bg4);
+    border: 1px solid var(--border2);
+    border-bottom: 2px solid var(--border2);
+    border-radius: 3px;
+    padding: 2px 6px;
+    color: var(--yellow);
+    min-width: 24px;
+    text-align: center;
+  }
+  .vk.active { background: rgba(188,140,255,0.15); border-color: var(--purple); color: var(--purple); }
+
+  .info-note {
+    font-size: 9px;
+    color: var(--text3);
+    padding: 4px 8px;
+    font-style: italic;
+  }
+
+  .makefile-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 7px 9px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    margin: 4px 8px;
+    line-height: 1.7;
+  }
+  .makefile-box .mk-target { color: var(--cyan); }
+  .makefile-box .mk-dep { color: var(--orange); }
+  .makefile-box .mk-cmd { color: var(--green); padding-left: 12px; }
+  .makefile-box .mk-var { color: var(--yellow); }
+  .makefile-box .mk-comment { color: var(--text3); }
+
+  .two-col { columns: 2; column-gap: 10px; }
+
+  print-note {
+    display: none;
+  }
+
+  @media print {
+    body { width: 100%; padding: 8px; }
+    .grid { page-break-inside: avoid; }
+    .section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TITLE -->
+<div class="poster-title">
+  <h1>
+    <span style="color:var(--text3)">&#9632;</span>
+    <span class="ubuntu">UBUNTU</span>
+    <span style="color:var(--text3)"> / </span>
+    <span class="linux">LINUX</span>
+    COMMAND CHEAT SHEET
+    <span style="color:var(--text3)">&#9632;</span>
+  </h1>
+  <div class="subtitle">COMPLETE REFERENCE — SOFTWARE ENGINEERING · DEVOPS · COMPETITIVE PROGRAMMING · SYSADMIN</div>
+  <div class="title-badges">
+    <span class="badge green">&#x25CF; BASH 5.x</span>
+    <span class="badge orange">&#x25CF; UBUNTU 22.04+</span>
+    <span class="badge blue">&#x25CF; LINUX KERNEL 5.x+</span>
+    <span class="badge purple">&#x25CF; VIM · GCC · GDB</span>
+    <span class="badge cyan">&#x25CF; GIT · MAKE · TMUX</span>
+    <span class="badge pink">&#x25CF; C++ WORKFLOW</span>
+  </div>
+</div>
+
+<!-- ROW 1 -->
+<div class="grid section-row">
+
+  <!-- 1. TERMINAL BASICS -->
+  <div class="section hdr-green">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--green)">&#x25BA;</span>
+      <span class="section-title">Terminal Basics</span>
+      <span class="section-num">01</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">pwd</span>
+        <span class="desc">Print working directory <span class="ex">pwd  #→ /home/user/projects</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ls</span>
+        <span class="desc">List directory contents <span class="ex">ls /etc</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ls <span class="flag">-l</span></span>
+        <span class="desc">Long format (permissions, size, date) <span class="ex">ls -l ~/projects</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ls <span class="flag">-la</span></span>
+        <span class="desc">Show hidden files + long format <span class="ex">ls -la ~</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ls <span class="flag">-lh</span></span>
+        <span class="desc">Human-readable sizes <span class="ex">ls -lh /var/log</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">clear</span>
+        <span class="desc">Clear terminal screen <span class="ex">clear  # or Ctrl+L</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">history</span>
+        <span class="desc">Show command history <span class="ex">history | tail -20</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">!! &amp; !<span class="arg">n</span></span>
+        <span class="desc">Run last cmd / run cmd #n <span class="ex">!!  # repeat last; !42 run #42</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">whoami</span>
+        <span class="desc">Show current user <span class="ex">whoami  #→ alice</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">hostname</span>
+        <span class="desc">Show machine name <span class="ex">hostname -I  # show IP</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">date</span>
+        <span class="desc">Show date and time <span class="ex">date "+%Y-%m-%d %H:%M"</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cal</span>
+        <span class="desc">Show calendar <span class="ex">cal 2025  # full year</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">uname <span class="flag">-a</span></span>
+        <span class="desc">Full system information <span class="ex">uname -r  # kernel version</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">echo <span class="arg">$VAR</span></span>
+        <span class="desc">Print variable or text <span class="ex">echo "Hello, $USER"</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">alias <span class="arg">ll</span>=<span class="str">'ls -la'</span></span>
+        <span class="desc">Create command alias <span class="ex">alias gs='git status'</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. DIRECTORY MANAGEMENT -->
+  <div class="section hdr-blue">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--blue)">&#x1F4C1;</span>
+      <span class="section-title">Directory Management</span>
+      <span class="section-num">02</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">mkdir <span class="arg">folder</span></span>
+        <span class="desc">Create directory <span class="ex">mkdir myproject</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">mkdir <span class="flag">-p</span> <span class="arg">a/b/c</span></span>
+        <span class="desc">Create nested dirs (no error if exists) <span class="ex">mkdir -p src/lib/utils</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">rmdir <span class="arg">folder</span></span>
+        <span class="desc">Remove empty directory <span class="ex">rmdir old_folder</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cd <span class="arg">folder</span></span>
+        <span class="desc">Change directory <span class="ex">cd /var/log</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cd <span class="op">..</span></span>
+        <span class="desc">Go up one level <span class="ex">cd ../../etc</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cd <span class="op">~</span></span>
+        <span class="desc">Go to home directory <span class="ex">cd ~/Downloads</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cd <span class="op">-</span></span>
+        <span class="desc">Go to previous directory <span class="ex">cd -  # toggle dirs</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">tree</span>
+        <span class="desc">Visual directory tree <span class="ex">tree -L 2  # 2 levels deep</span></span>
+      </div>
+    </div>
+    <div class="path-note">
+      <strong style="color:var(--blue)">Absolute path:</strong> starts from / &nbsp;&nbsp;
+      <code style="color:var(--cyan)">/home/user/file.txt</code><br>
+      <strong style="color:var(--blue)">Relative path:</strong> from current dir &nbsp;
+      <code style="color:var(--cyan)">./file.txt</code> or <code style="color:var(--cyan)">../parent/file</code>
+    </div>
+  </div>
+
+  <!-- 3. FILE MANAGEMENT -->
+  <div class="section hdr-cyan">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--cyan)">&#x1F4C4;</span>
+      <span class="section-title">File Management</span>
+      <span class="section-num">03</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">touch <span class="arg">file.txt</span></span>
+        <span class="desc">Create file / update timestamp <span class="ex">touch {a,b,c}.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cp <span class="arg">src dst</span></span>
+        <span class="desc">Copy file <span class="ex">cp config.cfg config.bak</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cp <span class="flag">-r</span> <span class="arg">dir1 dir2</span></span>
+        <span class="desc">Copy directory recursively <span class="ex">cp -r src/ backup/</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cp <span class="flag">-p</span> <span class="arg">src dst</span></span>
+        <span class="desc">Preserve permissions &amp; timestamps <span class="ex">cp -p app.conf ~/</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">mv <span class="arg">old new</span></span>
+        <span class="desc">Move / rename file or dir <span class="ex">mv draft.txt final.txt</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">rm <span class="arg">file</span></span>
+        <span class="desc">Delete file <span class="ex">rm temp.log</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">rm <span class="flag">-r</span> <span class="arg">dir</span></span>
+        <span class="desc">Delete directory recursively <span class="ex">rm -r node_modules/</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">rm <span class="flag">-rf</span> <span class="arg">dir</span></span>
+        <span class="desc"><span class="tag r">DANGER</span> Force delete, no prompt <span class="ex">rm -rf /tmp/cache/</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">file <span class="arg">name</span></span>
+        <span class="desc">Detect file type <span class="ex">file image.jpg  #→ JPEG image</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">stat <span class="arg">file</span></span>
+        <span class="desc">Detailed file metadata <span class="ex">stat /etc/passwd</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">wc <span class="flag">-l</span> <span class="arg">file</span></span>
+        <span class="desc">Count lines in file <span class="ex">wc -l main.cpp</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. VIEWING FILE CONTENT -->
+  <div class="section hdr-purple">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--purple)">&#x1F441;</span>
+      <span class="section-title">Viewing File Content</span>
+      <span class="section-num">04</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">cat <span class="arg">file</span></span>
+        <span class="desc">Print file to stdout <span class="ex">cat /etc/hosts</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cat <span class="flag">-n</span> <span class="arg">file</span></span>
+        <span class="desc">Print with line numbers <span class="ex">cat -n main.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">less <span class="arg">file</span></span>
+        <span class="desc">Paginated viewer (q=quit, /=search) <span class="ex">less /var/log/syslog</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">more <span class="arg">file</span></span>
+        <span class="desc">Basic pager (space=next page) <span class="ex">more README.md</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">head <span class="flag">-n 20</span> <span class="arg">file</span></span>
+        <span class="desc">First N lines (default 10) <span class="ex">head -n 5 data.csv</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">tail <span class="flag">-n 20</span> <span class="arg">file</span></span>
+        <span class="desc">Last N lines (default 10) <span class="ex">tail -n 100 app.log</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">tail <span class="flag">-f</span> <span class="arg">file</span></span>
+        <span class="desc">Follow file in real-time <span class="ex">tail -f /var/log/syslog</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">nl <span class="arg">file</span></span>
+        <span class="desc">Number lines of output <span class="ex">nl -ba main.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">tac <span class="arg">file</span></span>
+        <span class="desc">Print file in reverse line order <span class="ex">tac log.txt | head</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">xxd <span class="arg">file</span></span>
+        <span class="desc">Hex dump of file <span class="ex">xxd binary.bin | head</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">strings <span class="arg">file</span></span>
+        <span class="desc">Extract printable strings <span class="ex">strings /bin/ls | grep ELF</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 2 -->
+<div class="grid section-row">
+
+  <!-- 5. SEARCHING FILES -->
+  <div class="section hdr-orange">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--orange)">&#x1F50D;</span>
+      <span class="section-title">Searching Files</span>
+      <span class="section-num">05</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">find <span class="arg">path</span> <span class="flag">-name</span> <span class="str">"*.cpp"</span></span>
+        <span class="desc">Find by filename pattern <span class="ex">find . -name "*.log"</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">find <span class="arg">.</span> <span class="flag">-type f</span></span>
+        <span class="desc">Find only files (d=dir, l=link) <span class="ex">find /etc -type f -name "*.conf"</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">find <span class="arg">.</span> <span class="flag">-size +10M</span></span>
+        <span class="desc">Files larger than 10MB <span class="ex">find /var -size +100M</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">find <span class="arg">.</span> <span class="flag">-mtime -7</span></span>
+        <span class="desc">Modified in last 7 days <span class="ex">find . -mtime -1 -name "*.py"</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">find <span class="arg">.</span> <span class="flag">-exec</span> <span class="arg">cmd</span> {} \;</span>
+        <span class="desc">Run cmd on each result <span class="ex">find . -name "*.tmp" -exec rm {} \;</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">locate <span class="arg">file</span></span>
+        <span class="desc">Fast search via database <span class="ex">locate nginx.conf</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">which <span class="arg">cmd</span></span>
+        <span class="desc">Find command in PATH <span class="ex">which python3  #→ /usr/bin/python3</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">whereis <span class="arg">cmd</span></span>
+        <span class="desc">Find binary, source, manpage <span class="ex">whereis gcc</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">type <span class="arg">cmd</span></span>
+        <span class="desc">Show if alias/builtin/binary <span class="ex">type ls  #→ ls is aliased to...</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. TEXT SEARCHING -->
+  <div class="section hdr-yellow">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--yellow)">&#x26B2;</span>
+      <span class="section-title">Text Searching (grep)</span>
+      <span class="section-num">06</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">grep <span class="str">"pattern"</span> <span class="arg">file</span></span>
+        <span class="desc">Search for pattern in file <span class="ex">grep "main" main.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">grep <span class="flag">-r</span> <span class="str">"pattern"</span> <span class="arg">dir</span></span>
+        <span class="desc">Recursive search in directory <span class="ex">grep -r "TODO" ./src</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">grep <span class="flag">-i</span> <span class="str">"pat"</span> <span class="arg">file</span></span>
+        <span class="desc">Case-insensitive match <span class="ex">grep -i "error" app.log</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">grep <span class="flag">-n</span> <span class="str">"pat"</span> <span class="arg">file</span></span>
+        <span class="desc">Show line numbers <span class="ex">grep -n "int main" *.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">grep <span class="flag">-v</span> <span class="str">"pat"</span> <span class="arg">file</span></span>
+        <span class="desc">Invert match (exclude) <span class="ex">grep -v "^#" config.cfg</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">grep <span class="flag">-c</span> <span class="str">"pat"</span> <span class="arg">file</span></span>
+        <span class="desc">Count matching lines <span class="ex">grep -c "ERROR" server.log</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">grep <span class="flag">-l</span> <span class="str">"pat"</span> <span class="arg">*.cpp</span></span>
+        <span class="desc">Only filenames with matches <span class="ex">grep -l "vector" src/*.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">grep <span class="flag">-A3 -B2</span> <span class="str">"pat"</span></span>
+        <span class="desc">3 lines after, 2 before match <span class="ex">grep -A5 "segfault" kern.log</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">egrep <span class="str">"pat1|pat2"</span> <span class="arg">file</span></span>
+        <span class="desc">Extended regex (OR pattern) <span class="ex">egrep "warn|error|fail" log</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. TEXT PROCESSING -->
+  <div class="section hdr-teal">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--teal)">&#x2699;</span>
+      <span class="section-title">Text Processing</span>
+      <span class="section-num">07</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">sed <span class="str">'s/old/new/g'</span> <span class="arg">f</span></span>
+        <span class="desc">Replace text (stream editor) <span class="ex">sed 's/foo/bar/g' file.txt</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">sed <span class="flag">-i</span> <span class="str">'s/a/b/g'</span> <span class="arg">f</span></span>
+        <span class="desc">In-place edit file <span class="ex">sed -i 's/v1/v2/g' config</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">awk <span class="str">'{print $2}'</span> <span class="arg">f</span></span>
+        <span class="desc">Print 2nd column <span class="ex">awk '{print $1, $3}' data.txt</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">awk <span class="flag">-F:</span> <span class="str">'{print $1}'</span></span>
+        <span class="desc">Use : as field separator <span class="ex">awk -F: '{print $1}' /etc/passwd</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cut <span class="flag">-d, -f1,3</span> <span class="arg">file</span></span>
+        <span class="desc">Cut columns from delimited file <span class="ex">cut -d: -f1,7 /etc/passwd</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">sort <span class="arg">file</span></span>
+        <span class="desc">Sort lines alphabetically <span class="ex">sort -n numbers.txt  # numeric</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">sort <span class="flag">-rk2</span> <span class="arg">file</span></span>
+        <span class="desc">Reverse sort by col 2 <span class="ex">sort -k2 -rn scores.txt</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">uniq <span class="arg">file</span></span>
+        <span class="desc">Remove duplicate adjacent lines <span class="ex">sort file | uniq -c</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">tr <span class="str">'a-z'</span> <span class="str">'A-Z'</span></span>
+        <span class="desc">Translate / delete characters <span class="ex">echo "hello" | tr 'a-z' 'A-Z'</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">wc <span class="flag">-lwc</span> <span class="arg">file</span></span>
+        <span class="desc">Lines, words, chars count <span class="ex">wc -l *.cpp | tail -1</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. FILE PERMISSIONS -->
+  <div class="section hdr-red">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--red)">&#x1F512;</span>
+      <span class="section-title">File Permissions</span>
+      <span class="section-num">08</span>
+    </div>
+    <div class="perm-grid">
+      <div class="perm-cell">
+        <div class="pval">4</div>
+        <div class="psym">r</div>
+        <div class="plabel">read</div>
+      </div>
+      <div class="perm-cell">
+        <div class="pval">2</div>
+        <div class="psym">w</div>
+        <div class="plabel">write</div>
+      </div>
+      <div class="perm-cell">
+        <div class="pval">1</div>
+        <div class="psym">x</div>
+        <div class="plabel">execute</div>
+      </div>
+      <div class="perm-cell">
+        <div class="pval">0</div>
+        <div class="psym">-</div>
+        <div class="plabel">none</div>
+      </div>
+    </div>
+    <div class="perm-diagram">
+      <span style="color:var(--text3)">-</span><span style="color:var(--red)">rwx</span><span style="color:var(--green)">r-x</span><span style="color:var(--blue)">r--</span>  user|group|other<br>
+      <span style="color:var(--text3)">d = dir &nbsp; l = symlink &nbsp; - = file</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">chmod <span class="num">755</span> <span class="arg">script.sh</span></span>
+        <span class="desc">rwxr-xr-x (exec for all) <span class="ex">chmod +x run.sh</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">chmod <span class="num">644</span> <span class="arg">file.txt</span></span>
+        <span class="desc">rw-r--r-- (read for all) <span class="ex">chmod 600 ~/.ssh/id_rsa</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">chmod <span class="flag">-R</span> <span class="num">755</span> <span class="arg">dir/</span></span>
+        <span class="desc">Recursive permission change <span class="ex">chmod -R 750 /srv/app</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">chown <span class="arg">user:group f</span></span>
+        <span class="desc">Change file owner &amp; group <span class="ex">chown alice:dev file.txt</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">chgrp <span class="arg">group file</span></span>
+        <span class="desc">Change group ownership <span class="ex">chgrp www-data /var/www</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">umask <span class="num">022</span></span>
+        <span class="desc">Default creation permissions <span class="ex">umask 027  # more restrictive</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 3 -->
+<div class="grid section-row">
+
+  <!-- 9. USER MANAGEMENT -->
+  <div class="section hdr-pink">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--pink)">&#x1F464;</span>
+      <span class="section-title">User Management</span>
+      <span class="section-num">09</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">sudo <span class="arg">command</span></span>
+        <span class="desc">Run as superuser <span class="ex">sudo apt update</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">sudo <span class="flag">-i</span></span>
+        <span class="desc">Interactive root shell <span class="ex">sudo -u postgres psql</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">su <span class="arg">username</span></span>
+        <span class="desc">Switch user <span class="ex">su - alice  # login shell</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">useradd <span class="flag">-m</span> <span class="arg">alice</span></span>
+        <span class="desc">Create user with home dir <span class="ex">useradd -m -s /bin/bash alice</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">userdel <span class="flag">-r</span> <span class="arg">alice</span></span>
+        <span class="desc">Delete user and home dir <span class="ex">userdel -r olduser</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">passwd <span class="arg">alice</span></span>
+        <span class="desc">Change user password <span class="ex">passwd  # change own pw</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">usermod <span class="flag">-aG</span> <span class="arg">sudo alice</span></span>
+        <span class="desc">Add user to group <span class="ex">usermod -aG docker alice</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">who</span>
+        <span class="desc">Who is logged in (terminals) <span class="ex">who -a  # all details</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">id <span class="arg">user</span></span>
+        <span class="desc">Show user ID and groups <span class="ex">id alice  # uid=1001...</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">groups <span class="arg">user</span></span>
+        <span class="desc">Show user's group memberships <span class="ex">groups  # current user</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">last</span>
+        <span class="desc">Show login history <span class="ex">last -n 10</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. PACKAGE MANAGEMENT -->
+  <div class="section hdr-orange">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--orange)">&#x1F4E6;</span>
+      <span class="section-title">Package Management (APT)</span>
+      <span class="section-num">10</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">sudo apt update</span>
+        <span class="desc">Refresh package index <span class="ex">sudo apt update &amp;&amp; sudo apt upgrade</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">sudo apt upgrade</span>
+        <span class="desc">Upgrade all packages <span class="ex">sudo apt upgrade -y</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">sudo apt install <span class="arg">pkg</span></span>
+        <span class="desc">Install package <span class="ex">sudo apt install build-essential</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">sudo apt remove <span class="arg">pkg</span></span>
+        <span class="desc">Remove package (keep config) <span class="ex">sudo apt remove firefox</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">sudo apt purge <span class="arg">pkg</span></span>
+        <span class="desc">Remove pkg + config files <span class="ex">sudo apt purge nginx</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">sudo apt autoremove</span>
+        <span class="desc">Remove unused dependencies <span class="ex">sudo apt autoremove --purge</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">apt search <span class="arg">pkg</span></span>
+        <span class="desc">Search packages <span class="ex">apt search "c++ compiler"</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">apt show <span class="arg">pkg</span></span>
+        <span class="desc">Show package details <span class="ex">apt show gcc</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">dpkg <span class="flag">-l</span></span>
+        <span class="desc">List installed packages <span class="ex">dpkg -l | grep python</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">dpkg <span class="flag">-i</span> <span class="arg">pkg.deb</span></span>
+        <span class="desc">Install .deb file <span class="ex">sudo dpkg -i app.deb</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">snap install <span class="arg">app</span></span>
+        <span class="desc">Install Snap package <span class="ex">snap install code --classic</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. PROCESS MANAGEMENT -->
+  <div class="section hdr-lime">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--lime)">&#x25B6;</span>
+      <span class="section-title">Process Management</span>
+      <span class="section-num">11</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">ps <span class="arg">aux</span></span>
+        <span class="desc">All processes (user,CPU,mem) <span class="ex">ps aux | grep nginx</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ps <span class="flag">-ef</span></span>
+        <span class="desc">Full format process list <span class="ex">ps -ef | grep python</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">top</span>
+        <span class="desc">Interactive process monitor <span class="ex">top -u alice  # filter by user</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">htop</span>
+        <span class="desc">Enhanced interactive monitor <span class="ex">htop -p 1234  # by PID</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">pgrep <span class="arg">name</span></span>
+        <span class="desc">Get PID by name <span class="ex">pgrep -l nginx</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">kill <span class="num">-9</span> <span class="arg">PID</span></span>
+        <span class="desc">Kill process by PID <span class="ex">kill -15 1234  # graceful</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">killall <span class="arg">name</span></span>
+        <span class="desc">Kill all processes by name <span class="ex">killall firefox</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">pkill <span class="flag">-9</span> <span class="arg">pat</span></span>
+        <span class="desc">Kill by pattern match <span class="ex">pkill -9 "python.*server"</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">jobs</span>
+        <span class="desc">List background jobs <span class="ex">jobs -l  # show PIDs</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">bg <span class="arg">%1</span> &amp; fg <span class="arg">%1</span></span>
+        <span class="desc">Background / foreground job <span class="ex">./long_job &amp;  # start in bg</span></span>
+      </div>
+    </div>
+    <div class="subsection-title">SIGNALS</div>
+    <div class="signal-table">
+      <div class="signal-row"><span class="sig-num">1</span><span class="sig-name">SIGHUP</span><span class="sig-desc">Hang up / reload config</span></div>
+      <div class="signal-row"><span class="sig-num">2</span><span class="sig-name">SIGINT</span><span class="sig-desc">Interrupt (Ctrl+C)</span></div>
+      <div class="signal-row"><span class="sig-num">9</span><span class="sig-name">SIGKILL</span><span class="sig-desc">Force kill (cannot be caught)</span></div>
+      <div class="signal-row"><span class="sig-num">15</span><span class="sig-name">SIGTERM</span><span class="sig-desc">Graceful termination (default)</span></div>
+      <div class="signal-row"><span class="sig-num">19</span><span class="sig-name">SIGSTOP</span><span class="sig-desc">Pause process (Ctrl+Z)</span></div>
+    </div>
+  </div>
+
+  <!-- 12. SYSTEM MONITORING -->
+  <div class="section hdr-blue">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--blue)">&#x1F4CA;</span>
+      <span class="section-title">System Monitoring</span>
+      <span class="section-num">12</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">free <span class="flag">-h</span></span>
+        <span class="desc">Memory usage (human-readable) <span class="ex">free -m  # megabytes</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">df <span class="flag">-h</span></span>
+        <span class="desc">Disk space usage <span class="ex">df -h /  # root filesystem</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">du <span class="flag">-sh</span> <span class="arg">dir/</span></span>
+        <span class="desc">Directory size summary <span class="ex">du -sh /var/log/*</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">du <span class="flag">-h --max-depth=1</span></span>
+        <span class="desc">Size of top-level subdirs <span class="ex">du -h --max-depth=1 /</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">uptime</span>
+        <span class="desc">System uptime and load avg <span class="ex">uptime -p  # pretty format</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">vmstat <span class="num">1</span></span>
+        <span class="desc">CPU/mem/io stats every 1s <span class="ex">vmstat 2 5  # 5 reports</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">iostat <span class="flag">-x</span> <span class="num">1</span></span>
+        <span class="desc">I/O statistics extended <span class="ex">iostat -xd sda 1</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">lscpu</span>
+        <span class="desc">CPU architecture info <span class="ex">lscpu | grep "Core(s)"</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">lsmem</span>
+        <span class="desc">Memory block info <span class="ex">cat /proc/meminfo</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">journalctl <span class="flag">-f</span></span>
+        <span class="desc">Follow system journal log <span class="ex">journalctl -u nginx -n 50</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">dmesg <span class="flag">-T</span></span>
+        <span class="desc">Kernel ring buffer with timestamps <span class="ex">dmesg | grep -i error</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 4 -->
+<div class="grid section-row">
+
+  <!-- 13. NETWORKING -->
+  <div class="section hdr-cyan">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--cyan)">&#x1F310;</span>
+      <span class="section-title">Networking</span>
+      <span class="section-num">13</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">ip addr</span>
+        <span class="desc">Show IP addresses / interfaces <span class="ex">ip addr show eth0</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ip route</span>
+        <span class="desc">Show routing table <span class="ex">ip route show default</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ping <span class="flag">-c4</span> <span class="arg">host</span></span>
+        <span class="desc">Ping host 4 times <span class="ex">ping -c4 google.com</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">curl <span class="flag">-L</span> <span class="arg">URL</span></span>
+        <span class="desc">Fetch URL, follow redirects <span class="ex">curl -O https://example.com/file</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">curl <span class="flag">-X POST</span> <span class="flag">-d</span> <span class="str">'data'</span></span>
+        <span class="desc">HTTP POST request <span class="ex">curl -X POST -H "Content-Type: application/json" -d '{"k":"v"}' url</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">wget <span class="arg">URL</span></span>
+        <span class="desc">Download file from URL <span class="ex">wget -q https://example.com/file.tar.gz</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ss <span class="flag">-tulnp</span></span>
+        <span class="desc">Show open ports + services <span class="ex">ss -tlnp | grep 8080</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">netstat <span class="flag">-tulnp</span></span>
+        <span class="desc">Network connections/ports <span class="ex">netstat -an | grep LISTEN</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">nslookup <span class="arg">domain</span></span>
+        <span class="desc">DNS query for domain <span class="ex">nslookup google.com 8.8.8.8</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">dig <span class="arg">domain</span></span>
+        <span class="desc">Detailed DNS lookup <span class="ex">dig +short A example.com</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">traceroute <span class="arg">host</span></span>
+        <span class="desc">Trace network path to host <span class="ex">traceroute google.com</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">iptables <span class="flag">-L</span></span>
+        <span class="desc">List firewall rules <span class="ex">sudo iptables -L -n -v</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. SSH -->
+  <div class="section hdr-green">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--green)">&#x1F511;</span>
+      <span class="section-title">SSH &amp; Remote Access</span>
+      <span class="section-num">14</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">ssh <span class="arg">user@host</span></span>
+        <span class="desc">Connect to remote host <span class="ex">ssh alice@192.168.1.10</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ssh <span class="flag">-p 2222</span> <span class="arg">user@host</span></span>
+        <span class="desc">Connect on custom port <span class="ex">ssh -p 2222 alice@server.com</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ssh <span class="flag">-i</span> <span class="arg">key.pem user@host</span></span>
+        <span class="desc">Connect with identity file <span class="ex">ssh -i ~/.ssh/mykey alice@host</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ssh-keygen <span class="flag">-t ed25519</span></span>
+        <span class="desc">Generate SSH key pair <span class="ex">ssh-keygen -t rsa -b 4096</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ssh-copy-id <span class="arg">user@host</span></span>
+        <span class="desc">Copy public key to server <span class="ex">ssh-copy-id -i ~/.ssh/id_ed25519.pub alice@host</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">scp <span class="arg">file user@host:path</span></span>
+        <span class="desc">Copy file to remote host <span class="ex">scp -r ./src alice@host:~/project</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">scp <span class="arg">user@host:file .</span></span>
+        <span class="desc">Copy file from remote host <span class="ex">scp alice@host:~/data.csv .</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">rsync <span class="flag">-avz</span> <span class="arg">src dst</span></span>
+        <span class="desc">Sync files (archive+verbose+compress) <span class="ex">rsync -avz ./app/ alice@host:~/app/</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ssh <span class="flag">-L</span> <span class="num">8080</span>:<span class="arg">localhost:80</span></span>
+        <span class="desc">Local port forwarding tunnel <span class="ex">ssh -L 5432:db:5432 user@jumphost</span></span>
+      </div>
+    </div>
+    <div class="path-note">
+      Config: <code style="color:var(--cyan)">~/.ssh/config</code> — Host aliases, identityfiles, port settings
+    </div>
+  </div>
+
+  <!-- 15. ARCHIVES -->
+  <div class="section hdr-yellow">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--yellow)">&#x1F5DC;</span>
+      <span class="section-title">Archives &amp; Compression</span>
+      <span class="section-num">15</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">tar <span class="flag">-czvf</span> <span class="arg">out.tar.gz dir</span></span>
+        <span class="desc">Create gzip archive <span class="ex">tar -czvf backup.tar.gz /home/alice</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">tar <span class="flag">-xzvf</span> <span class="arg">file.tar.gz</span></span>
+        <span class="desc">Extract gzip archive <span class="ex">tar -xzvf backup.tar.gz -C /tmp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">tar <span class="flag">-cjvf</span> <span class="arg">out.tar.bz2</span></span>
+        <span class="desc">Create bzip2 archive <span class="ex">tar -cjvf archive.tar.bz2 src/</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">tar <span class="flag">-tvf</span> <span class="arg">file.tar.gz</span></span>
+        <span class="desc">List archive contents <span class="ex">tar -tvf backup.tar.gz | head</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">gzip <span class="arg">file</span></span>
+        <span class="desc">Compress file → file.gz <span class="ex">gzip -9 bigfile.txt  # max compress</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">gunzip <span class="arg">file.gz</span></span>
+        <span class="desc">Decompress .gz file <span class="ex">gunzip data.csv.gz</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">zip <span class="flag">-r</span> <span class="arg">out.zip dir</span></span>
+        <span class="desc">Create ZIP archive <span class="ex">zip -r project.zip ./src</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">unzip <span class="arg">file.zip</span></span>
+        <span class="desc">Extract ZIP archive <span class="ex">unzip -d /tmp file.zip</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">tar flags: <span class="flag">c</span>=create <span class="flag">x</span>=extract <span class="flag">z</span>=gzip <span class="flag">j</span>=bzip2 <span class="flag">v</span>=verbose <span class="flag">f</span>=file</span>
+        <span class="desc"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16 + 17 combined -->
+  <div class="section hdr-purple">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--purple)">&#x1F517;</span>
+      <span class="section-title">Symlinks &amp; Disk Ops</span>
+      <span class="section-num">16·17</span>
+    </div>
+    <div class="subsection-title">SYMBOLIC LINKS</div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">ln <span class="arg">src dst</span></span>
+        <span class="desc">Hard link (same inode) <span class="ex">ln main.cpp main_backup.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">ln <span class="flag">-s</span> <span class="arg">target link</span></span>
+        <span class="desc">Soft/symbolic link <span class="ex">ln -s /usr/bin/python3 /usr/bin/python</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">readlink <span class="flag">-f</span> <span class="arg">link</span></span>
+        <span class="desc">Resolve symlink to real path <span class="ex">readlink -f /usr/bin/python</span></span>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+    <div class="subsection-title">DISK OPERATIONS</div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">lsblk</span>
+        <span class="desc">List block devices/partitions <span class="ex">lsblk -o NAME,SIZE,TYPE,MOUNTPOINT</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">fdisk <span class="flag">-l</span></span>
+        <span class="desc">List partition tables <span class="ex">sudo fdisk -l /dev/sda</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">mount <span class="arg">/dev/sdb1 /mnt</span></span>
+        <span class="desc">Mount partition <span class="ex">mount -t ntfs /dev/sdb1 /mnt/usb</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">umount <span class="arg">/mnt</span></span>
+        <span class="desc">Unmount partition <span class="ex">umount /dev/sdb1</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">blkid</span>
+        <span class="desc">Show block device UUIDs <span class="ex">blkid /dev/sda1</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">sync</span>
+        <span class="desc">Flush filesystem buffers to disk <span class="ex">sync &amp;&amp; umount /mnt/usb</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 5: ENV + SHORTCUTS + REDIRECTION + VIM -->
+<div class="grid section-row">
+
+  <!-- 18. ENV VARIABLES -->
+  <div class="section hdr-teal">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--teal)">&#x1F4BE;</span>
+      <span class="section-title">Environment Variables</span>
+      <span class="section-num">18</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">echo <span class="arg">$PATH</span></span>
+        <span class="desc">Show PATH variable <span class="ex">echo $HOME $USER $SHELL</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">export <span class="arg">VAR</span>=<span class="str">value</span></span>
+        <span class="desc">Set env variable for session <span class="ex">export CC=gcc CXX=g++</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">export PATH=<span class="arg">$PATH</span>:<span class="str">/new</span></span>
+        <span class="desc">Append to PATH <span class="ex">export PATH=$PATH:~/.local/bin</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">env</span>
+        <span class="desc">Print all env variables <span class="ex">env | grep -i path</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">printenv <span class="arg">VAR</span></span>
+        <span class="desc">Print specific variable <span class="ex">printenv HOME</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">unset <span class="arg">VAR</span></span>
+        <span class="desc">Remove env variable <span class="ex">unset MY_SECRET</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">source <span class="arg">~/.bashrc</span></span>
+        <span class="desc">Reload shell config <span class="ex">source ~/.profile</span></span>
+      </div>
+    </div>
+    <div class="path-note">
+      Persist vars: add <code style="color:var(--cyan)">export VAR=val</code> to <code style="color:var(--cyan)">~/.bashrc</code> or <code style="color:var(--cyan)">~/.profile</code>
+    </div>
+  </div>
+
+  <!-- 19. BASH SHORTCUTS -->
+  <div class="section hdr-green">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--green)">&#x2328;</span>
+      <span class="section-title">Bash Shortcuts</span>
+      <span class="section-num">19</span>
+    </div>
+    <div class="shortcut-grid">
+      <div class="shortcut-row"><span class="key">Ctrl+A</span><span class="key-desc">Move to line start</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+E</span><span class="key-desc">Move to line end</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+B</span><span class="key-desc">Move cursor back</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+F</span><span class="key-desc">Move cursor forward</span></div>
+      <div class="shortcut-row"><span class="key">Alt+B</span><span class="key-desc">Move word backward</span></div>
+      <div class="shortcut-row"><span class="key">Alt+F</span><span class="key-desc">Move word forward</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+W</span><span class="key-desc">Delete word before cursor</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+K</span><span class="key-desc">Delete to end of line</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+U</span><span class="key-desc">Delete to start of line</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+Y</span><span class="key-desc">Paste (yank) deleted text</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+R</span><span class="key-desc">Reverse search history</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+G</span><span class="key-desc">Abort reverse search</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+L</span><span class="key-desc">Clear screen</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+C</span><span class="key-desc">Interrupt/kill command</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+Z</span><span class="key-desc">Suspend to background</span></div>
+      <div class="shortcut-row"><span class="key">Ctrl+D</span><span class="key-desc">EOF / logout</span></div>
+      <div class="shortcut-row"><span class="key">Tab</span><span class="key-desc">Autocomplete path/cmd</span></div>
+      <div class="shortcut-row"><span class="key">Tab Tab</span><span class="key-desc">List all completions</span></div>
+      <div class="shortcut-row"><span class="key">&#x2191; &#x2193;</span><span class="key-desc">Navigate history</span></div>
+      <div class="shortcut-row"><span class="key">!!</span><span class="key-desc">Repeat last command</span></div>
+    </div>
+  </div>
+
+  <!-- 20. REDIRECTION & PIPES -->
+  <div class="section hdr-orange">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--orange)">&#x27A1;</span>
+      <span class="section-title">Redirection &amp; Pipes</span>
+      <span class="section-num">20</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">cmd <span class="op">&gt;</span> <span class="arg">file</span></span>
+        <span class="desc">Redirect stdout (overwrite) <span class="ex">ls -la > files.txt</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cmd <span class="op">&gt;&gt;</span> <span class="arg">file</span></span>
+        <span class="desc">Redirect stdout (append) <span class="ex">echo "log entry" >> app.log</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cmd <span class="op">&lt;</span> <span class="arg">file</span></span>
+        <span class="desc">Redirect stdin from file <span class="ex">./a.out < input.txt</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cmd <span class="op">2&gt;</span> <span class="arg">err.log</span></span>
+        <span class="desc">Redirect stderr <span class="ex">gcc main.cpp 2> errors.log</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cmd <span class="op">&amp;&gt;</span> <span class="arg">file</span></span>
+        <span class="desc">Redirect stdout + stderr <span class="ex">./app &> output.log</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cmd <span class="op">2&gt;&amp;1</span></span>
+        <span class="desc">Merge stderr into stdout <span class="ex">./a.out > out.txt 2>&1</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cmd1 <span class="op">|</span> cmd2</span>
+        <span class="desc">Pipe output to next command <span class="ex">cat file | grep main | wc -l</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cmd <span class="op">| tee</span> <span class="arg">file</span></span>
+        <span class="desc">Write to file AND stdout <span class="ex">./a.out | tee output.txt</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cmd1 <span class="op">&amp;&amp;</span> cmd2</span>
+        <span class="desc">Run cmd2 only if cmd1 succeeds <span class="ex">make && ./app</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cmd1 <span class="op">||</span> cmd2</span>
+        <span class="desc">Run cmd2 only if cmd1 fails <span class="ex">test -d dir || mkdir dir</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">cmd1 <span class="op">;</span> cmd2</span>
+        <span class="desc">Run cmd2 regardless of cmd1 <span class="ex">cd /tmp; ls; cd -</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 21. VIM ESSENTIALS -->
+  <div class="section hdr-purple col-span-1">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--purple)">&#x270D;</span>
+      <span class="section-title">Vim Essentials</span>
+      <span class="section-num">21</span>
+    </div>
+    <div class="vim-grid">
+      <div class="vim-mode">
+        <div class="vm-name">NORMAL</div>
+        <div class="vm-desc">Default mode — navigate &amp; edit</div>
+        <div class="vm-key">Esc</div>
+      </div>
+      <div class="vim-mode">
+        <div class="vm-name">INSERT</div>
+        <div class="vm-desc">Type text</div>
+        <div class="vm-key">i · a · o · O</div>
+      </div>
+      <div class="vim-mode">
+        <div class="vm-name">VISUAL</div>
+        <div class="vm-desc">Select text</div>
+        <div class="vm-key">v · V · Ctrl+V</div>
+      </div>
+      <div class="vim-mode">
+        <div class="vm-name">COMMAND</div>
+        <div class="vm-desc">Run Ex commands</div>
+        <div class="vm-key">:</div>
+      </div>
+    </div>
+    <div class="vim-move">
+      <div style="font-size:9px;color:var(--text3);margin-bottom:4px;">MOVEMENT</div>
+      <div class="vim-move-row"><span class="vk">gg</span><span class="vk active">k</span><span class="vk">G</span></div>
+      <div class="vim-move-row"><span class="vk active">h</span><span class="vk">↓j</span><span class="vk active">l</span></div>
+      <div class="vim-move-row"><span class="vk">w</span><span class="vk">b</span><span class="vk">e</span></div>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row"><span class="cmd">:w <span class="op">·</span> :q <span class="op">·</span> :wq <span class="op">·</span> :q!</span><span class="desc">save · quit · save+quit · force quit</span></div>
+      <div class="cmd-row"><span class="cmd">dd <span class="op">·</span> yy <span class="op">·</span> p</span><span class="desc">Delete line · yank line · paste</span></div>
+      <div class="cmd-row"><span class="cmd">u <span class="op">·</span> Ctrl+r</span><span class="desc">Undo · redo</span></div>
+      <div class="cmd-row"><span class="cmd">/<span class="str">pattern</span> <span class="op">·</span> n <span class="op">·</span> N</span><span class="desc">Search · next · prev match</span></div>
+      <div class="cmd-row"><span class="cmd">:%s/<span class="str">old</span>/<span class="str">new</span>/g</span><span class="desc">Replace all occurrences in file</span></div>
+      <div class="cmd-row"><span class="cmd">:vsplit <span class="op">·</span> :split</span><span class="desc">Vertical / horizontal split</span></div>
+      <div class="cmd-row"><span class="cmd">Ctrl+w <span class="op">+</span> hjkl</span><span class="desc">Navigate between split windows</span></div>
+      <div class="cmd-row"><span class="cmd">:set nu <span class="op">·</span> :syntax on</span><span class="desc">Line numbers · syntax highlight</span></div>
+      <div class="cmd-row"><span class="cmd">dw <span class="op">·</span> cw <span class="op">·</span> ciw</span><span class="desc">Delete word · change word · change in word</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 6: GCC + GDB + MAKE + GIT -->
+<div class="grid section-row">
+
+  <!-- 22. GCC/G++ -->
+  <div class="section hdr-lime">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--lime)">&#x2699;</span>
+      <span class="section-title">GCC / G++ Compilation</span>
+      <span class="section-num">22</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">g++ <span class="arg">main.cpp</span></span>
+        <span class="desc">Compile (outputs a.out) <span class="ex">g++ main.cpp && ./a.out</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">g++ <span class="flag">-o</span> <span class="arg">app main.cpp</span></span>
+        <span class="desc">Compile with output name <span class="ex">g++ -o sol main.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">g++ <span class="flag">-std=c++17</span> <span class="arg">main.cpp</span></span>
+        <span class="desc">Use C++17 standard <span class="ex">g++ -std=c++20 main.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">g++ <span class="flag">-Wall -Wextra</span></span>
+        <span class="desc">Enable all warnings <span class="ex">g++ -Wall -Wextra -Wshadow main.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">g++ <span class="flag">-O2</span> <span class="arg">main.cpp</span></span>
+        <span class="desc">Optimization level 2 (speed) <span class="ex">g++ -O2 -o sol main.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">g++ <span class="flag">-g</span> <span class="arg">main.cpp</span></span>
+        <span class="desc">Include debug symbols <span class="ex">g++ -g -o app main.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">g++ <span class="flag">-fsanitize=address</span></span>
+        <span class="desc">AddressSanitizer (memory bugs) <span class="ex">g++ -fsanitize=undefined main.cpp</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">g++ <span class="flag">-lm -lpthread</span></span>
+        <span class="desc">Link math / pthread libs <span class="ex">g++ main.cpp -lm</span></span>
+      </div>
+    </div>
+    <div class="code-block">
+<span class="comment"># Full competitive programming compile</span>
+<span class="prompt">$</span> <span class="cmd2">g++</span> <span class="flag2">-std=c++17 -O2 -Wall</span> <span class="flag2">-o</span> <span class="str2">sol</span> main.cpp
+<span class="prompt">$</span> <span class="cmd2">./sol</span> <span class="flag2">&lt;</span> <span class="str2">input.txt</span> <span class="flag2">&gt;</span> <span class="str2">output.txt</span></div>
+  </div>
+
+  <!-- 23. GDB -->
+  <div class="section hdr-red">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--red)">&#x1F41B;</span>
+      <span class="section-title">GDB Debugging</span>
+      <span class="section-num">23</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">gdb <span class="arg">./app</span></span>
+        <span class="desc">Start GDB with executable <span class="ex">gdb -tui ./app  # TUI mode</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">break <span class="arg">main</span></span>
+        <span class="desc">Set breakpoint at function <span class="ex">break main.cpp:42  # by line</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">run <span class="arg">args</span></span>
+        <span class="desc">Run program with arguments <span class="ex">run < input.txt</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">next <span class="op">(n)</span></span>
+        <span class="desc">Next line (step over functions) <span class="ex">n 5  # next 5 times</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">step <span class="op">(s)</span></span>
+        <span class="desc">Step into function call <span class="ex">s  # enter function</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">continue <span class="op">(c)</span></span>
+        <span class="desc">Continue to next breakpoint <span class="ex">c</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">print <span class="arg">var</span></span>
+        <span class="desc">Print variable value <span class="ex">print arr[0]  # print *ptr</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">backtrace <span class="op">(bt)</span></span>
+        <span class="desc">Show call stack <span class="ex">bt full  # with locals</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">info break</span>
+        <span class="desc">List breakpoints <span class="ex">delete 1  # remove bp #1</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">watch <span class="arg">var</span></span>
+        <span class="desc">Break when variable changes <span class="ex">watch arr[i]</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">quit <span class="op">(q)</span></span>
+        <span class="desc">Exit GDB <span class="ex">q</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 24. MAKEFILES -->
+  <div class="section hdr-orange">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--orange)">&#x1F528;</span>
+      <span class="section-title">Makefiles</span>
+      <span class="section-num">24</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">make</span>
+        <span class="desc">Build default target <span class="ex">make -j4  # use 4 cores</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">make <span class="arg">target</span></span>
+        <span class="desc">Build specific target <span class="ex">make clean all</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">make clean</span>
+        <span class="desc">Remove build artifacts <span class="ex">make distclean</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">make <span class="flag">-n</span></span>
+        <span class="desc">Dry run (show what would run) <span class="ex">make -n install</span></span>
+      </div>
+    </div>
+    <div class="makefile-box">
+<span class="mk-comment"># Simple C++ Makefile</span>
+<span class="mk-var">CXX</span>     := g++
+<span class="mk-var">CXXFLAGS</span>:= -std=c++17 -O2 -Wall
+<span class="mk-var">TARGET</span>  := app
+<span class="mk-var">SRC</span>     := main.cpp util.cpp
+
+<span class="mk-target">all</span>: <span class="mk-dep">$(TARGET)</span>
+
+<span class="mk-target">$(TARGET)</span>: <span class="mk-dep">$(SRC)</span>
+<span class="mk-cmd">$(CXX) $(CXXFLAGS) -o $@ $^</span>
+
+<span class="mk-target">clean</span>:
+<span class="mk-cmd">rm -f $(TARGET) *.o</span>
+
+<span class="mk-target">.PHONY</span>: <span class="mk-dep">all clean</span></div>
+  </div>
+
+  <!-- 25. GIT -->
+  <div class="section hdr-green">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--green)">&#x2387;</span>
+      <span class="section-title">Git Essentials</span>
+      <span class="section-num">25</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">git init</span>
+        <span class="desc">Initialize repository <span class="ex">git init myproject</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git clone <span class="arg">URL</span></span>
+        <span class="desc">Clone remote repository <span class="ex">git clone --depth 1 URL</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git status</span>
+        <span class="desc">Show working tree status <span class="ex">git status -s  # short</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git add <span class="arg">.</span></span>
+        <span class="desc">Stage all changes <span class="ex">git add -p  # interactive</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git commit <span class="flag">-m</span> <span class="str">"msg"</span></span>
+        <span class="desc">Commit with message <span class="ex">git commit --amend</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git push <span class="arg">origin main</span></span>
+        <span class="desc">Push to remote <span class="ex">git push -u origin main</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git pull</span>
+        <span class="desc">Fetch + merge from remote <span class="ex">git pull --rebase origin main</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git branch <span class="arg">feature</span></span>
+        <span class="desc">Create branch <span class="ex">git branch -a  # list all</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git checkout <span class="arg">branch</span></span>
+        <span class="desc">Switch branch <span class="ex">git checkout -b new-feature</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git merge <span class="arg">branch</span></span>
+        <span class="desc">Merge branch into current <span class="ex">git merge --no-ff feature</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git log <span class="flag">--oneline</span></span>
+        <span class="desc">Compact commit history <span class="ex">git log --graph --all</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git diff <span class="arg">HEAD~1</span></span>
+        <span class="desc">Diff with previous commit <span class="ex">git diff --stat</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git stash</span>
+        <span class="desc">Stash current changes <span class="ex">git stash pop  # restore</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">git reset <span class="flag">--hard</span> <span class="arg">HEAD</span></span>
+        <span class="desc">Discard all local changes <span class="ex">git revert HEAD  # safe</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 7: ADVANCED + TMUX + WORKFLOW + SYSTEMCTL -->
+<div class="grid section-row">
+
+  <!-- 26. C++ COMPETITIVE WORKFLOW -->
+  <div class="section hdr-cyan">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--cyan)">&#x26A1;</span>
+      <span class="section-title">C++ Competitive Workflow</span>
+      <span class="section-num">26</span>
+    </div>
+    <div class="code-block">
+<span class="comment"># Setup contest directory</span>
+<span class="prompt">$</span> <span class="cmd2">mkdir</span> contest &amp;&amp; <span class="cmd2">cd</span> contest
+<span class="prompt">$</span> <span class="cmd2">vim</span> A.cpp
+
+<span class="comment"># Compile with full flags</span>
+<span class="prompt">$</span> <span class="cmd2">g++</span> <span class="flag2">-std=c++17 -O2 -Wall -Wextra</span> <span class="flag2">-o</span> A A.cpp
+
+<span class="comment"># Run with file I/O</span>
+<span class="prompt">$</span> <span class="cmd2">./A</span> <span class="flag2">&lt;</span> input.txt <span class="flag2">&gt;</span> output.txt
+
+<span class="comment"># Diff against expected</span>
+<span class="prompt">$</span> <span class="cmd2">diff</span> output.txt expected.txt
+
+<span class="comment"># Time execution</span>
+<span class="prompt">$</span> <span class="cmd2">time</span> ./A <span class="flag2">&lt;</span> big_input.txt
+
+<span class="comment"># Debug with sanitizers</span>
+<span class="prompt">$</span> <span class="cmd2">g++</span> <span class="flag2">-g -fsanitize=address,undefined</span> <span class="flag2">-o</span> A_dbg A.cpp</div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">ulimit <span class="flag">-s</span> unlimited</span>
+        <span class="desc">Unlimited stack size for recursion <span class="ex">ulimit -a  # show all limits</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">strace <span class="arg">./app</span></span>
+        <span class="desc">Trace system calls <span class="ex">strace -e open ./app</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 27. ADVANCED COMMANDS -->
+  <div class="section hdr-yellow">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--yellow)">&#x1F9E0;</span>
+      <span class="section-title">Advanced Commands</span>
+      <span class="section-num">27</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">xargs <span class="flag">-I{}</span> <span class="arg">cmd {}</span></span>
+        <span class="desc">Build cmd from stdin <span class="ex">find . -name "*.log" | xargs rm</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">nohup <span class="arg">cmd</span> <span class="op">&amp;</span></span>
+        <span class="desc">Run ignoring hangup signal <span class="ex">nohup ./server.sh &</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">watch <span class="flag">-n2</span> <span class="arg">df -h</span></span>
+        <span class="desc">Repeat command every 2 seconds <span class="ex">watch -n1 'ps aux | grep app'</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">crontab <span class="flag">-e</span></span>
+        <span class="desc">Edit cron jobs <span class="ex">crontab -l  # list jobs</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd"><span class="num">0 2 * * *</span> <span class="arg">cmd</span></span>
+        <span class="desc">Cron: run cmd at 2AM daily <span class="ex">*/5 * * * * /script.sh</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">journalctl <span class="flag">-u</span> <span class="arg">nginx</span></span>
+        <span class="desc">View service logs <span class="ex">journalctl --since "1 hour ago"</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">systemctl <span class="arg">start|stop|restart</span></span>
+        <span class="desc">Manage services <span class="ex">systemctl start nginx</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">systemctl <span class="arg">enable|disable</span></span>
+        <span class="desc">Auto-start on boot <span class="ex">systemctl enable --now ssh</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">systemctl <span class="arg">status svc</span></span>
+        <span class="desc">Check service status <span class="ex">systemctl status nginx</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">lsof <span class="flag">-i</span> :<span class="num">8080</span></span>
+        <span class="desc">What's using port 8080 <span class="ex">lsof -p 1234  # by PID</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">screen <span class="flag">-S</span> <span class="arg">name</span></span>
+        <span class="desc">Create named screen session <span class="ex">screen -r name  # reattach</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 28. TMUX -->
+  <div class="section hdr-blue">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--blue)">&#x1F4BB;</span>
+      <span class="section-title">Tmux Cheat Sheet</span>
+      <span class="section-num">28</span>
+    </div>
+    <div class="subsection-title">SESSION</div>
+    <div class="shortcut-grid">
+      <div class="shortcut-row"><span class="key">tmux</span><span class="key-desc">New session</span></div>
+      <div class="shortcut-row"><span class="key">tmux new -s name</span><span class="key-desc">Named session</span></div>
+      <div class="shortcut-row"><span class="key">tmux ls</span><span class="key-desc">List sessions</span></div>
+      <div class="shortcut-row"><span class="key">tmux a -t name</span><span class="key-desc">Attach to session</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + d</span><span class="key-desc">Detach session</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + $</span><span class="key-desc">Rename session</span></div>
+    </div>
+    <div class="subsection-title">WINDOWS &amp; PANES (Prefix = Ctrl+B)</div>
+    <div class="shortcut-grid">
+      <div class="shortcut-row"><span class="key">Prefix + c</span><span class="key-desc">New window</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + n/p</span><span class="key-desc">Next/prev window</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + 0-9</span><span class="key-desc">Switch window #</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + &amp;</span><span class="key-desc">Close window</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + %</span><span class="key-desc">Split vertical</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + "</span><span class="key-desc">Split horizontal</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + arrows</span><span class="key-desc">Navigate panes</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + x</span><span class="key-desc">Close pane</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + z</span><span class="key-desc">Zoom pane toggle</span></div>
+      <div class="shortcut-row"><span class="key">Prefix + [</span><span class="key-desc">Scroll mode</span></div>
+    </div>
+  </div>
+
+  <!-- 29+30 EMERGENCY + DIR STRUCTURE -->
+  <div class="section hdr-red">
+    <div class="section-header">
+      <span class="section-icon" style="color:var(--red)">&#x26A0;</span>
+      <span class="section-title">Emergency &amp; System</span>
+      <span class="section-num">29</span>
+    </div>
+    <div class="cmd-body">
+      <div class="cmd-row">
+        <span class="cmd">reboot</span>
+        <span class="desc">Restart system immediately <span class="ex">sudo reboot</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">shutdown <span class="flag">now</span></span>
+        <span class="desc">Shutdown immediately <span class="ex">sudo shutdown now</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">shutdown <span class="flag">-h +5</span></span>
+        <span class="desc">Halt in 5 minutes <span class="ex">shutdown -c  # cancel</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">poweroff</span>
+        <span class="desc">Power off system <span class="ex">sudo poweroff</span></span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd">SysRq <span class="flag">REISUB</span></span>
+        <span class="desc">Safe kernel reboot sequence <span class="ex">Alt+SysRq+B = immediate</span></span>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+    <div class="dir-tree">
+      <div><span style="color:var(--orange)">/</span> <span class="dir-desc">— root of filesystem</span></div>
+      <div>├── <span class="dir-name">bin</span> <span class="dir-desc">Essential user binaries</span></div>
+      <div>├── <span class="dir-name">boot</span> <span class="dir-desc">Bootloader, kernel</span></div>
+      <div>├── <span class="dir-name">dev</span> <span class="dir-desc">Device files</span></div>
+      <div>├── <span class="dir-name">etc</span> <span class="dir-desc">System config files</span></div>
+      <div>├── <span class="dir-name">home</span> <span class="dir-desc">User home directories</span></div>
+      <div>├── <span class="dir-name">lib</span> <span class="dir-desc">Shared libraries</span></div>
+      <div>├── <span class="dir-name">media</span> <span class="dir-desc">Mount point (removable)</span></div>
+      <div>├── <span class="dir-name">mnt</span> <span class="dir-desc">Temporary mount point</span></div>
+      <div>├── <span class="dir-name">opt</span> <span class="dir-desc">Optional/3rd party software</span></div>
+      <div>├── <span class="dir-name">proc</span> <span class="dir-desc">Process info (virtual FS)</span></div>
+      <div>├── <span class="dir-name">root</span> <span class="dir-desc">Root user home</span></div>
+      <div>├── <span class="dir-name">sbin</span> <span class="dir-desc">System admin binaries</span></div>
+      <div>├── <span class="dir-name">srv</span> <span class="dir-desc">Service data</span></div>
+      <div>├── <span class="dir-name">sys</span> <span class="dir-desc">Kernel/sysfs interface</span></div>
+      <div>├── <span class="dir-name">tmp</span> <span class="dir-desc">Temporary files (cleared)</span></div>
+      <div>├── <span class="dir-name">usr</span> <span class="dir-desc">User programs &amp; data</span></div>
+      <div>└── <span class="dir-name">var</span> <span class="dir-desc">Variable data (logs, spool)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER ROW: DIAGRAMS -->
+<div style="margin-top:4px;">
+  <div class="grid-3 grid section-row" style="grid-template-columns: repeat(3,1fr)">
+
+    <!-- GIT WORKFLOW -->
+    <div class="section hdr-green">
+      <div class="section-header">
+        <span class="section-icon" style="color:var(--green)">&#x2387;</span>
+        <span class="section-title">Git Workflow Diagram</span>
+      </div>
+      <div class="git-flow">
+        <div class="git-node"><div class="gn-label">workspace</div><div class="gn-name" style="color:var(--text2)">Working Dir</div></div>
+        <div class="git-arrow">→</div>
+        <div class="git-node"><div class="gn-label">git add</div><div class="gn-name" style="color:var(--yellow)">Staging Area</div></div>
+        <div class="git-arrow">→</div>
+        <div class="git-node"><div class="gn-label">git commit</div><div class="gn-name" style="color:var(--green)">Local Repo</div></div>
+        <div class="git-arrow">→</div>
+        <div class="git-node"><div class="gn-label">git push</div><div class="gn-name" style="color:var(--blue)">Remote Repo</div></div>
+      </div>
+      <div class="git-flow" style="flex-direction:row-reverse">
+        <div class="git-node"><div class="gn-label">git pull</div><div class="gn-name" style="color:var(--cyan)">↓ fetch+merge</div></div>
+        <div class="git-arrow">←</div>
+        <div class="git-node"><div class="gn-label">git fetch</div><div class="gn-name" style="color:var(--purple)">Remote tracking</div></div>
+      </div>
+      <div class="subsection-title" style="margin-top:4px">BRANCH WORKFLOW</div>
+      <div class="code-block">
+<span class="cmd2">git checkout</span> <span class="flag2">-b</span> feature/new   <span class="comment"># create &amp; switch</span>
+<span class="comment"># ... make changes ...</span>
+<span class="cmd2">git add</span> . &amp;&amp; <span class="cmd2">git commit</span> <span class="flag2">-m</span> <span class="str2">"feat: add X"</span>
+<span class="cmd2">git checkout</span> main
+<span class="cmd2">git merge</span> <span class="flag2">--no-ff</span> feature/new
+<span class="cmd2">git push</span> origin main</div>
+    </div>
+
+    <!-- PROCESS LIFECYCLE -->
+    <div class="section hdr-lime">
+      <div class="section-header">
+        <span class="section-icon" style="color:var(--lime)">&#x25B6;</span>
+        <span class="section-title">Process Lifecycle &amp; Permissions</span>
+      </div>
+      <div class="lifecycle">
+        <div class="lc-state new">NEW</div>
+        <div class="lc-arrow">→ fork()</div>
+        <div class="lc-state active">RUNNING</div>
+        <div class="lc-arrow">⇄ SIGSTOP/SIGCONT</div>
+        <div class="lc-state stopped">STOPPED</div>
+      </div>
+      <div class="lifecycle">
+        <div class="lc-state sleeping">SLEEPING</div>
+        <div class="lc-arrow">⇄ I/O wait</div>
+        <div class="lc-state active">RUNNING</div>
+        <div class="lc-arrow">→ SIGKILL/exit()</div>
+        <div class="lc-state zombie">ZOMBIE</div>
+      </div>
+      <div class="section-divider"></div>
+      <div class="subsection-title">PERMISSION OCTAL REFERENCE</div>
+      <div style="padding:4px 8px">
+        <table class="octal-table">
+          <tr><th>Octal</th><th>Symbolic</th><th>Meaning</th></tr>
+          <tr><td>777</td><td>rwxrwxrwx</td><td>All perms for all</td></tr>
+          <tr><td>755</td><td>rwxr-xr-x</td><td>User full, others exec</td></tr>
+          <tr><td>700</td><td>rwx------</td><td>Owner only (private dir)</td></tr>
+          <tr><td>644</td><td>rw-r--r--</td><td>User rw, others read</td></tr>
+          <tr><td>600</td><td>rw-------</td><td>Owner only (SSH keys)</td></tr>
+          <tr><td>640</td><td>rw-r-----</td><td>User rw, group read</td></tr>
+          <tr><td>400</td><td>r--------</td><td>Read-only (backups)</td></tr>
+          <tr><td>000</td><td>---------</td><td>No permissions</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- NETWORKING QUICK REF -->
+    <div class="section hdr-cyan">
+      <div class="section-header">
+        <span class="section-icon" style="color:var(--cyan)">&#x1F310;</span>
+        <span class="section-title">Network Quick Reference</span>
+      </div>
+      <div class="subsection-title">COMMON PORTS</div>
+      <div class="net-ref-row"><span class="net-port">22</span><span class="net-name">SSH</span></div>
+      <div class="net-ref-row"><span class="net-port">80</span><span class="net-name">HTTP</span></div>
+      <div class="net-ref-row"><span class="net-port">443</span><span class="net-name">HTTPS</span></div>
+      <div class="net-ref-row"><span class="net-port">21</span><span class="net-name">FTP</span></div>
+      <div class="net-ref-row"><span class="net-port">25/587</span><span class="net-name">SMTP</span></div>
+      <div class="net-ref-row"><span class="net-port">3306</span><span class="net-name">MySQL</span></div>
+      <div class="net-ref-row"><span class="net-port">5432</span><span class="net-name">PostgreSQL</span></div>
+      <div class="net-ref-row"><span class="net-port">6379</span><span class="net-name">Redis</span></div>
+      <div class="net-ref-row"><span class="net-port">8080</span><span class="net-name">HTTP Alt</span></div>
+      <div class="net-ref-row"><span class="net-port">27017</span><span class="net-name">MongoDB</span></div>
+      <div class="section-divider"></div>
+      <div class="subsection-title">NETWORK COMMANDS</div>
+      <div class="code-block">
+<span class="comment"># Check open ports</span>
+<span class="prompt">$</span> <span class="cmd2">ss</span> <span class="flag2">-tulnp</span>
+<span class="comment"># Test connectivity</span>
+<span class="prompt">$</span> <span class="cmd2">nc</span> <span class="flag2">-zv</span> host 22
+<span class="comment"># Download file</span>
+<span class="prompt">$</span> <span class="cmd2">wget</span> <span class="flag2">-c</span> <span class="str2">http://url/file</span>
+<span class="comment"># Check public IP</span>
+<span class="prompt">$</span> <span class="cmd2">curl</span> <span class="str2">ifconfig.me</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-section">
+    <div class="footer-title">&#x25BA; Bash Special Vars</div>
+    <div class="footer-note">
+      <code style="color:var(--cyan);font-family:var(--mono);font-size:9px">$0</code> script name<br>
+      <code style="color:var(--cyan);font-family:var(--mono);font-size:9px">$1..$9</code> positional args<br>
+      <code style="color:var(--cyan);font-family:var(--mono);font-size:9px">$#</code> num args<br>
+      <code style="color:var(--cyan);font-family:var(--mono);font-size:9px">$@</code> all args<br>
+      <code style="color:var(--cyan);font-family:var(--mono);font-size:9px">$?</code> exit status<br>
+      <code style="color:var(--cyan);font-family:var(--mono);font-size:9px">$$</code> current PID<br>
+      <code style="color:var(--cyan);font-family:var(--mono);font-size:9px">$!</code> last bg PID<br>
+      <code style="color:var(--cyan);font-family:var(--mono);font-size:9px">$_</code> last argument
+    </div>
+  </div>
+  <div class="footer-section">
+    <div class="footer-title">&#x2699; Quick Script Template</div>
+    <div class="code-block" style="font-size:8.5px;margin:0">
+<span class="comment">#!/bin/bash</span>
+<span class="kw">set</span> -euo pipefail
+<span class="kw">readonly</span> DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &amp;&amp; pwd)"
+<span class="kw">main()</span> {
+  echo "Args: $@"
+}
+main "$@"</div>
+  </div>
+  <div class="footer-section">
+    <div class="footer-title">&#x1F4CB; File Test Operators</div>
+    <div class="footer-note">
+      <code style="color:var(--yellow);font-family:var(--mono);font-size:9px">-e file</code> exists<br>
+      <code style="color:var(--yellow);font-family:var(--mono);font-size:9px">-f file</code> is regular file<br>
+      <code style="color:var(--yellow);font-family:var(--mono);font-size:9px">-d file</code> is directory<br>
+      <code style="color:var(--yellow);font-family:var(--mono);font-size:9px">-r file</code> is readable<br>
+      <code style="color:var(--yellow);font-family:var(--mono);font-size:9px">-w file</code> is writable<br>
+      <code style="color:var(--yellow);font-family:var(--mono);font-size:9px">-x file</code> is executable<br>
+      <code style="color:var(--yellow);font-family:var(--mono);font-size:9px">-s file</code> size &gt; 0<br>
+      <code style="color:var(--yellow);font-family:var(--mono);font-size:9px">-z str</code> string empty
+    </div>
+  </div>
+  <div class="footer-section">
+    <div class="footer-title">&#x1F4E1; System Info Quick</div>
+    <div class="footer-note">
+      <code style="color:var(--green);font-family:var(--mono);font-size:9px">cat /etc/os-release</code><br>
+      <code style="color:var(--green);font-family:var(--mono);font-size:9px">cat /proc/cpuinfo</code><br>
+      <code style="color:var(--green);font-family:var(--mono);font-size:9px">cat /proc/meminfo</span></code><br>
+      <code style="color:var(--green);font-family:var(--mono);font-size:9px">lspci | grep VGA</code><br>
+      <code style="color:var(--green);font-family:var(--mono);font-size:9px">lsusb</code><br>
+      <code style="color:var(--green);font-family:var(--mono);font-size:9px">dmidecode -t memory</code><br>
+      <code style="color:var(--green);font-family:var(--mono);font-size:9px">inxi -Fxz</code>
+    </div>
+  </div>
+  <div class="footer-section">
+    <div class="footer-title">&#x1F4CC; Reference</div>
+    <div class="footer-note" style="color:var(--text3)">
+      Ubuntu 22.04 LTS · Bash 5.x<br>
+      GCC/G++ 11+ · Git 2.x<br>
+      Kernel 5.15+<br><br>
+      <span style="color:var(--green2)">man [cmd]</span> — full manual<br>
+      <span style="color:var(--green2)">[cmd] --help</span> — quick help<br>
+      <span style="color:var(--green2)">tldr [cmd]</span> — examples only<br>
+      <span style="color:var(--green2)">info [cmd]</span> — GNU info pages
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;margin-top:12px;font-family:var(--mono);font-size:8px;color:var(--text3);letter-spacing:2px;border-top:1px solid var(--border);padding-top:8px">
+  UBUNTU / LINUX COMMAND CHEAT SHEET &nbsp;·&nbsp; 30 SECTIONS &nbsp;·&nbsp; SOFTWARE ENGINEERING · DEVOPS · COMPETITIVE PROGRAMMING
+</div>
+
+</body>
+</html>
