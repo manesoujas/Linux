@@ -1,290 +1,127 @@
-# 🚀 Project Name
+# 📄 Cheat Sheet Project
 
-> A short and compelling one-line description of your project.
-
-![GitHub stars](https://img.shields.io/github/stars/username/repository?style=social)
-![GitHub forks](https://img.shields.io/github/forks/username/repository?style=social)
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
+A simple and clean **HTML cheat sheet project** built using basic web technologies. This project helps beginners quickly understand and revise commonly used HTML elements and structures.
 
 ---
 
-## 📖 Table of Contents
+## 🚀 Live Demo
 
-- [About](#-about)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Project Structure](#-project-structure)
-- [Configuration](#-configuration)
-- [API Reference](#-api-reference)
-- [Screenshots](#-screenshots)
-- [Testing](#-testing)
-- [Contributing](#-contributing)
-- [Roadmap](#-roadmap)
-- [License](#-license)
-- [Author](#-author)
+If hosted:
+
+https://your-live-demo-link.com
 
 ---
 
-## 🎯 About
+## 📁 Files Included
 
-Describe your project here.
-
-**What does it do?**
-
-- Solves a specific problem.
-- Improves workflow.
-- Saves time and effort.
+- `index.html` → Main cheat sheet page
+- `README.md` → Project documentation
 
 ---
 
-## ✨ Features
+## 🎯 Purpose
 
-- ✅ Feature 1
-- ✅ Feature 2
-- ✅ Feature 3
-- ✅ Feature 4
-- ✅ Responsive Design
-- ✅ Easy Configuration
+This project was created to:
+
+- Help beginners learn HTML quickly
+- Provide a ready reference for common tags
+- Practice frontend development basics
+- Build a clean static webpage
 
 ---
 
 ## 🛠 Tech Stack
 
-### Frontend
 - HTML5
-- CSS3
-- JavaScript
-- React
-
-### Backend
-- Node.js
-- Express.js
-
-### Database
-- MongoDB
-
-### Tools
-- Git
-- GitHub
-- Docker
+- Basic CSS (if included)
+- No frameworks used
 
 ---
 
-## ⚙️ Installation
+## 📸 Preview
 
-### Clone the Repository
-
-```bash
-git clone https://github.com/username/project-name.git
-```
-
-### Navigate to Project Directory
-
-```bash
-cd project-name
-```
-
-### Install Dependencies
-
-```bash
-npm install
-```
-
-### Start Development Server
-
-```bash
-npm run dev
-```
-
----
-
-## 🚀 Usage
-
-Run the project:
-
-```bash
-npm start
-```
-
-Visit:
-
-```text
-http://localhost:3000
-```
-
----
-
-## 📂 Project Structure
-
-```plaintext
-project-root/
-│
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── services/
-│   ├── hooks/
-│   └── utils/
-│
-├── public/
-│
-├── tests/
-│
-├── docs/
-│
-├── package.json
-├── README.md
-└── .env
-```
-
----
-
-## 🔧 Configuration
-
-Create a `.env` file in the root directory:
-
-```env
-PORT=3000
-DATABASE_URL=your_database_url
-API_KEY=your_api_key
-JWT_SECRET=your_secret_key
-```
-
----
-
-## 📚 API Reference
-
-### Get User
-
-```http
-GET /api/users/:id
-```
-
-### Response
-
-```json
-{
-  "id": 1,
-  "name": "John Doe",
-  "email": "john@example.com"
-}
-```
-
----
-
-## 📸 Screenshots
-
-### Home Page
+> Add a screenshot here (recommended)
 
 ```md
-![Home Page](assets/homepage.png)
-```
-
-### Dashboard
-
-```md
-![Dashboard](assets/dashboard.png)
+![Preview](assets/preview.png)
 ```
 
 ---
 
-## 🧪 Testing
+## 💡 Features
 
-Run tests:
+- Simple and clean UI
+- Beginner-friendly layout
+- Organized HTML tags
+- Lightweight and fast
+- No dependencies
+
+---
+
+## 📂 How to Use
+
+1. Clone the repository
 
 ```bash
-npm test
+git clone https://github.com/yourusername/your-repo-name.git
 ```
 
-Run test coverage:
+2. Open the project folder
 
 ```bash
-npm run coverage
+cd your-repo-name
 ```
+
+3. Run the project
+
+Just open:
+
+```
+index.html
+```
+
+in your browser.
+
+---
+
+## 📌 Project Structure
+
+```
+project/
+│
+├── index.html
+└── README.md
+```
+
+---
+
+## 🌱 Future Improvements
+
+- Add CSS styling improvements
+- Add JavaScript interactivity
+- Convert into interactive cheat sheet website
+- Add search functionality
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome.
+Contributions are welcome!
 
-### Steps
-
-1. Fork the repository
-
-2. Create a branch
-
-```bash
-git checkout -b feature/your-feature
-```
-
-3. Commit changes
-
-```bash
-git commit -m "Add your feature"
-```
-
-4. Push changes
-
-```bash
-git push origin feature/your-feature
-```
-
-5. Open a Pull Request
-
----
-
-## 🗺 Roadmap
-
-- [ ] Add Authentication
-- [ ] Dark Mode
-- [ ] User Profiles
-- [ ] Notifications
-- [ ] Mobile App Support
-
----
-
-## 📈 Future Improvements
-
-- AI Integration
-- Multi-language Support
-- Cloud Deployment
-- Analytics Dashboard
-
----
-
-## 📝 License
-
-Distributed under the MIT License.
-
-See `LICENSE` for more information.
+1. Fork the repo
+2. Create a new branch
+3. Make changes
+4. Submit a pull request
 
 ---
 
 ## 👨‍💻 Author
 
-**Your Name**
-
-GitHub: https://github.com/yourusername
-
-LinkedIn: https://linkedin.com/in/yourprofile
-
-Email: your@email.com
+Your Name  
+GitHub: https://github.com/yourusername  
 
 ---
 
-## ⭐ Show Your Support
+## ⭐ Support
 
-Give a ⭐️ if this project helped you!
-
----
-
-<div align="center">
-
-### 🚀 Happy Coding!
-
-Made with ❤️ by Your Name
-
-</div>
+If you like this project, don’t forget to ⭐ star the repository.
